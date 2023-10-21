@@ -1,0 +1,30 @@
+<div class="text-center">
+  <h3>Weather App</h3>
+</div>
+
+<%= form_with url: getWeather_weather_index_path, method: :get ,class: "row g-3" do |form|  %>
+
+
+  <div class="col-auto">
+    <%= form.text_field :city ,class: "form-control" %>
+  </div>
+  <div class="col-auto">
+    <%= form.submit "Search",class: "btn btn-primary mb-3" %>
+  </div>
+
+
+<% end %>
+
+<% if params[:weather].present? && JSON.parse(params[:weather])["cod"]!="404" %>
+  <% @weather = JSON.parse(params[:weather]) %>
+  <br>
+  <br>
+  <div class="card text-center mb-3" style="width: 18rem;">
+    <div class="card-body">
+      <h5 class="card-title">Weather In <%=@weather["name"]%> </h5>
+      <h4> <%=@weather['weather'][0]["main"] %></h4>
+      <h6>Temperature :  <%=@weather['main']['temp'] %></h6>
+    </div>
+  </div>
+
+<% end %>
